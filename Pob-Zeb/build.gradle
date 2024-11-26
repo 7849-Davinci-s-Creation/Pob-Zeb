@@ -10,9 +10,9 @@ repositories {
 }
 
 dependencies {
-    implementation("net.dv8tion:JDA:5.1.2")
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.5'
-    implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+    implementation group: 'net.dv8tion' , name: 'JDA', version: '5.2.1'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.12'
+    implementation group: 'io.github.cdimascio', name: 'dotenv-java', version: '3.0.2'
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
