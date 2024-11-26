@@ -15,16 +15,17 @@ public final class Listener extends ListenerAdapter {
     private final CommandManager commandManager = new CommandManager();
 
     /**List of discord text channel ids, this is used to check if the bot should even bother doing things if it's not in a designated channel*/
-    private final ArrayList<String> acceptableChannel = new ArrayList<>();
+    private final ArrayList<String> acceptableChannels = new ArrayList<>();
 
     public Listener() {
-        acceptableChannel.add(Config.get("BOT_COMMANDS_TEXT_CHANNEL"));
+        acceptableChannels.add(Config.get("BOT_COMMANDS_TEXT_CHANNEL"));
+        acceptableChannels.add(Config.get("DEBUG_CHANNEL"));
     }
 
     @Override
     public void onReady(@NotNull ReadyEvent event) {
         // register commands
-        event.getJDA().updateCommands().addCommands(commandManager.getCommands()).queue();
+        event.getJDA().updateCommands().addCommands(commandManager.getCommandsData()).queue();
 
         LOGGER.info("""
                                                              *#####%    %#####,              \s
@@ -46,10 +47,9 @@ public final class Listener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if (!acceptableChannel.contains(event.getChannelId())) {
+        if (!acceptableChannels.contains(event.getChannelId())) {
             return;
         }
-
 
     }
 
