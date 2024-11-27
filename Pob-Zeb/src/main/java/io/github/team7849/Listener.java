@@ -26,6 +26,9 @@ public final class Listener extends ListenerAdapter {
     @Override
     public void onGuildJoin(@NotNull GuildJoinEvent event) {
         event.getJDA().updateCommands().addCommands(commandManager.getCommandsData()).queue();
+
+        final GuildBuilder guildBuilder = new GuildBuilder(event.getGuild());
+        guildBuilder.buildGuild();
     }
 
     @Override
@@ -53,7 +56,7 @@ public final class Listener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if (!acceptableChannels.contains(event.getChannelId()) || event.getUser().isBot()) {
+        if (!acceptableChannels.contains(event.getChannelId()) || event.getUser().isBot() || !event.getChannel().getName().equals("color-picker")) {
             return;
         }
 
