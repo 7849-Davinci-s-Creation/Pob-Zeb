@@ -1,5 +1,6 @@
 package io.github.team7849;
 
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -20,6 +21,11 @@ public final class Listener extends ListenerAdapter {
     public Listener() {
         acceptableChannels.add(Config.get("BOT_COMMANDS_TEXT_CHANNEL"));
         acceptableChannels.add(Config.get("DEBUG_CHANNEL"));
+    }
+
+    @Override
+    public void onGuildJoin(@NotNull GuildJoinEvent event) {
+        event.getJDA().updateCommands().addCommands(commandManager.getCommandsData()).queue();
     }
 
     @Override
