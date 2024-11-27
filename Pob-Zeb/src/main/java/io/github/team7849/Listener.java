@@ -53,5 +53,4 @@ public final class Listener extends ListenerAdapter {
 
         commandManager.handle(event);
     }
-
 }

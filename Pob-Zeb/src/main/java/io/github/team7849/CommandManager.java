@@ -2,6 +2,7 @@ package io.github.team7849;
 
 import io.github.team7849.Commands.Command;
 import io.github.team7849.Commands.CommandContext;
+import io.github.team7849.Commands.SlashCommands.HelloCommand;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -17,10 +18,10 @@ public final class CommandManager {
     private final HashMap<String, Command> commandMap = new HashMap<>();
 
     public CommandManager() {
+        registerCommand(new HelloCommand());
 
-
-        for (int i = 0; i < commands.size(); i++) {
-            commandMap.put(commands.get(i).getName(), commands.get(i));
+        for (Command command : commands) {
+            commandMap.put(command.getName(), command);
         }
     }
 
@@ -36,7 +37,7 @@ public final class CommandManager {
         Command command = commandMap.get(event.getName());
 
         if (command == null) {
-            event.getChannel().asTextChannel().sendMessage("Command not found!").queue();
+            event.reply("Command not found!").queue();
             return;
         }
 

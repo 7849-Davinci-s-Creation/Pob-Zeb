@@ -2,8 +2,8 @@ package io.github.team7849.Commands;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
@@ -18,10 +18,6 @@ public record CommandContext(SlashCommandInteractionEvent event, List<OptionData
 
     public JDA getJDA() {
         return this.event.getJDA();
-    }
-
-    public TextChannel getChannel() {
-        return this.event().getChannel().asTextChannel();
     }
 
     public String getCommandName() {
@@ -46,6 +42,10 @@ public record CommandContext(SlashCommandInteractionEvent event, List<OptionData
 
     public Member getSelfMember() {
         return this.getGuild().getSelfMember();
+    }
+
+    public OptionMapping getOption(String name) {
+        return event.getOption(name);
     }
 
     public static SlashCommandData createSlashCommand(Command command, OptionData... options) {
