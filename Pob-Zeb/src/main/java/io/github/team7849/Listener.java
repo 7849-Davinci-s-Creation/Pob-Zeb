@@ -47,10 +47,11 @@ public final class Listener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if (!acceptableChannels.contains(event.getChannelId())) {
+        if (!acceptableChannels.contains(event.getChannelId()) || event.getUser().isBot()) {
             return;
         }
 
+        commandManager.handle(event);
     }
 
 }
