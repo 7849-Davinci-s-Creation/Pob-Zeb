@@ -10,7 +10,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Objects;
 
 public final class ColorPickerManager {
 
@@ -25,7 +24,7 @@ public final class ColorPickerManager {
         if (wantedRole == null) {
             LOGGER.info("NULL");
         } else {
-            LOGGER.info("WANTED ROLE: " + wantedRole);
+            LOGGER.info("WANTED ROLE: {}", wantedRole);
         }
 
         if (wantedRole == null) {
@@ -103,9 +102,15 @@ public final class ColorPickerManager {
     public static final HashMap<String, ColorRole> EMOJI_ROLE_MAP = new HashMap<>();
 
     static {
-        EMOJI_ROLE_MAP.put("red", ColorPickerManager.ColorRoles.RED);
-        EMOJI_ROLE_MAP.put("blue", ColorPickerManager.ColorRoles.BLUE);
-        EMOJI_ROLE_MAP.put("green", ColorPickerManager.ColorRoles.GREEN);
+        EMOJI_ROLE_MAP.put("red", new ColorPickerManager.ColorRole("red", Color.RED, "\uD83D\uDFE5", "U+1f7e5"));
+        EMOJI_ROLE_MAP.put("blue", new ColorPickerManager.ColorRole("blue", Color.BLUE, "\uD83D\uDFE6", "U+1f7e6"));
+        EMOJI_ROLE_MAP.put("green", new ColorPickerManager.ColorRole("green", Color.GREEN, "\uD83D\uDFE9", "U+1f7e9"));
+        EMOJI_ROLE_MAP.put("purple", new ColorPickerManager.ColorRole("purple", new Color(128, 0, 128), "\uD83D\uDFEA", "U+1F7EA"));
+        EMOJI_ROLE_MAP.put("orange", new ColorPickerManager.ColorRole("orange", Color.ORANGE, "\uD83D\uDFE7", "U+1F7E7"));
+        EMOJI_ROLE_MAP.put("brown", new ColorPickerManager.ColorRole("brown", new Color(165,42,42), "\uD83D\uDFEB", "U+1F7EB"));
+        EMOJI_ROLE_MAP.put("yellow", new ColorPickerManager.ColorRole("yellow", Color.YELLOW, "\uD83D\uDFE8", "U+1F7E8"));
+        EMOJI_ROLE_MAP.put("white", new ColorPickerManager.ColorRole("white", Color.WHITE, "\uD83C\uDFF3\uFE0F", "U+1F3F3U+FE0F"));
+        EMOJI_ROLE_MAP.put("black", new ColorPickerManager.ColorRole("black", Color.black, "\uD83C\uDFF4", "U+1F3F4"));
     }
 
     public static class ColorRole {
@@ -149,11 +154,5 @@ public final class ColorPickerManager {
         public String getCodePoint() {
             return codePoint;
         }
-    }
-
-    private static class ColorRoles {
-        private static final ColorRole RED = new ColorPickerManager.ColorRole("red", Color.RED, "\uD83D\uDFE5", "U+1f7e5");
-        private static final ColorRole BLUE = new ColorPickerManager.ColorRole("blue", Color.BLUE, "\uD83D\uDFE6", "U+1f7e6");
-        private static final ColorRole GREEN = new ColorPickerManager.ColorRole("green", Color.GREEN, "\uD83D\uDFE9", "U+1f7e9");
     }
 }
