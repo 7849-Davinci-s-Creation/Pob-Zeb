@@ -28,6 +28,6 @@ public class HelloCommand implements Command {
 
     @Override
     public OptionData[] getOptions() {
-        return new OptionData[] {};
+        return new OptionData[]{};
     }
 }

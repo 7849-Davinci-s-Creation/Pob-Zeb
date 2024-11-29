@@ -1,7 +1,9 @@
 package io.github.team7849;
 
+import io.github.team7849.Commands.ColorPickerManager;
 import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
@@ -21,9 +23,16 @@ public final class Listener extends ListenerAdapter {
      */
     private final ArrayList<String> acceptableChannels = new ArrayList<>();
 
+    /**
+     * List of text channel names the bot needs to pay attention to.
+     */
+    private final ArrayList<String> channelsOfInterest = new ArrayList<>();
+
     public Listener() {
         acceptableChannels.add(Config.get("BOT_COMMANDS_TEXT_CHANNEL"));
         acceptableChannels.add(Config.get("DEBUG_CHANNEL"));
+
+        channelsOfInterest.add(Constants.COLOR_PICKER_CHANNEL_NAME);
     }
 
     @Override
@@ -31,7 +40,13 @@ public final class Listener extends ListenerAdapter {
         event.getJDA().updateCommands().addCommands(commandManager.getCommandsData()).queue();
 
         final GuildBuilder guildBuilder = new GuildBuilder(event.getGuild());
-        guildBuilder.buildGuild();
+
+        try {
+            guildBuilder.buildGuild();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
@@ -65,5 +80,27 @@ public final class Listener extends ListenerAdapter {
         }
 
         commandManager.handle(event);
+    }
+
+    @Override
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
+        if (!channelsOfInterest.contains(event.getChannel().getName())) {
+            return;
+        }
+
+        if (event.getUser() == null || event.getUser().isBot()) {
+            return;
+        }
+
+        if (event.getChannel().getName().equals(Constants.COLOR_PICKER_CHANNEL_NAME)) {
+
+            try {
+                new ColorPickerManager().handleEmojiReaction(event);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        }
+
     }
 }

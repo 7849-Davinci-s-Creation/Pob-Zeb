@@ -21,13 +21,13 @@ public final class GuildBuilder {
     private final Guild guild;
 
     // other vars for guild building
-    HashMap<String, ColorPickerManager.ColorRole> emojiToRoleMap = new ColorPickerManager().getEmojiToRoleMap();
+    HashMap<String, ColorPickerManager.ColorRole> emojiToRoleMap = ColorPickerManager.EMOJI_ROLE_MAP;
 
     public GuildBuilder(Guild guild) {
         this.guild = guild;
     }
 
-    public void buildGuild() {
+    public void buildGuild() throws InterruptedException {
         LOGGER.info("Building guild");
 
         LOGGER.info("Checking for color roles. ");
@@ -58,7 +58,7 @@ public final class GuildBuilder {
         boolean hasColorChannel = false;
         for (TextChannel channel : guild.getTextChannels()) {
 
-            if (channel.getName().equals("color-picker")) {
+            if (channel.getName().equals(Constants.COLOR_PICKER_CHANNEL_NAME)) {
                 hasColorChannel = true;
 
                 break;
@@ -71,11 +71,13 @@ public final class GuildBuilder {
 
             final Role everyoneRole = guild.getPublicRole();
 
-            guild.createTextChannel("color-picker").addPermissionOverride(
+            guild.createTextChannel(Constants.COLOR_PICKER_CHANNEL_NAME).addPermissionOverride(
                     everyoneRole,
                     EnumSet.of(Permission.VIEW_CHANNEL, Permission.MESSAGE_HISTORY, Permission.MESSAGE_ADD_REACTION), // Allowed
                     EnumSet.of(Permission.MESSAGE_SEND, Permission.MANAGE_CHANNEL) // Denied
             ).queue();
+
+            Thread.sleep(1000);
 
         }
 
