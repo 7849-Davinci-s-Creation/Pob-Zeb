@@ -2,6 +2,14 @@ plugins {
     id 'java'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'io.github.team7849.Main'
+        )
+    }
+}
+
 group = 'io.github.team7849'
 version = '1.0-SNAPSHOT'
 
