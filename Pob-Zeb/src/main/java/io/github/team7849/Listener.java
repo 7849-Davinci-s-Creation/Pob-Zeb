@@ -15,7 +15,10 @@ public final class Listener extends ListenerAdapter {
 
     private final CommandManager commandManager = new CommandManager();
 
-    /**List of discord text channel ids, this is used to check if the bot should even bother doing things if it's not in a designated channel*/
+    /**
+     * List of discord text channel ids, this is used to check if the bot should
+     * even bother doing things if it's not in a designated channel
+     */
     private final ArrayList<String> acceptableChannels = new ArrayList<>();
 
     public Listener() {
@@ -56,7 +59,8 @@ public final class Listener extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        if (!acceptableChannels.contains(event.getChannelId()) || event.getUser().isBot() || !event.getChannel().getName().equals("color-picker")) {
+        if (!acceptableChannels.contains(event.getChannelId()) || event.getUser().isBot()
+                || !event.getChannel().getName().equals("color-picker")) {
             return;
         }
 

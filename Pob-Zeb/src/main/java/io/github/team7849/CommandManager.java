@@ -51,8 +51,7 @@ public final class CommandManager {
         this.commands.add(command);
 
         this.commandsData.add(
-                CommandContext.createSlashCommand(command,command.getOptions())
-        );
+                CommandContext.createSlashCommand(command, command.getOptions()));
     }
 
 }

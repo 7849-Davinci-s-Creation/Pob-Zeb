@@ -12,17 +12,17 @@ public class Main {
 
     public static void main(String[] args) {
         BOT.setChunkingFilter(ChunkingFilter.ALL);
-        //BOT.setMemberCachePolicy(MemberCachePolicy.ALL);
-        //BOT.enableIntents(GatewayIntent.GUILD_MEMBERS);
+        // BOT.setMemberCachePolicy(MemberCachePolicy.ALL);
+        // BOT.enableIntents(GatewayIntent.GUILD_MEMBERS);
         BOT.enableCache(CacheFlag.VOICE_STATE);
         BOT.enableIntents(GatewayIntent.GUILD_MESSAGES);
         BOT.enableIntents(GatewayIntent.GUILD_VOICE_STATES);
         BOT.enableIntents(GatewayIntent.DIRECT_MESSAGE_REACTIONS);
         BOT.enableIntents(GatewayIntent.DIRECT_MESSAGES);
         BOT.enableIntents(GatewayIntent.GUILD_MESSAGE_TYPING);
-        //BOT.enableIntents(GatewayIntent.GUILD_PRESENCES);
+        // BOT.enableIntents(GatewayIntent.GUILD_PRESENCES);
         BOT.enableIntents(GatewayIntent.GUILD_INVITES);
-        //BOT.enableIntents(GatewayIntent.MESSAGE_CONTENT);
+        // BOT.enableIntents(GatewayIntent.MESSAGE_CONTENT);
         BOT.enableIntents(GatewayIntent.GUILD_MODERATION);
         BOT.enableIntents(GatewayIntent.SCHEDULED_EVENTS);
 
