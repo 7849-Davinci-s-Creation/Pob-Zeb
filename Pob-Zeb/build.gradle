@@ -1,15 +1,26 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
+    }
+}
+
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 jar {
     manifest {
-        attributes(
-                'Main-Class': 'io.github.team7849.Main'
-        )
+        attributes 'Main-Class': 'io.github.team7849.Main'
     }
-}
 
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
 group = 'io.github.team7849'
 version = '1.0-SNAPSHOT'
 
